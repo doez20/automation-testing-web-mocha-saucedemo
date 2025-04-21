@@ -4,7 +4,6 @@ const { ServiceBuilder } = require('selenium-webdriver/chrome');
 const assert = require('assert');
 
 describe('Google Search', function() {
-    //let driver;
     let service = new ServiceBuilder(require('chromedriver').path);
     let options = new chrome.Options();
 
@@ -20,39 +19,9 @@ describe('Google Search', function() {
         console.log("ini ngeprint di dalem hook before");
     });
 
-    /*
-    it('Visit Sauce Demo dan cek page title', async function() {
-        driver = await new Builder().forBrowser('chrome').build();
-        
-        await driver.get('https://www.saucedemo.com/');
-
-        await driver.sleep(3000); // Tunggu 2 detik agar halaman sepenuhnya dimuat
-        //const title = await driver.getTitle();
-        //assert.strictEqual(title, 'Swag Labs');
-
-        await driver.quit();
-    });
-    */
 
     it('Sukses Login dan urutkan Produk dari A - Z', async function() {
-        //Options = new chrome.Options();
-        //driver = await new Builder().forBrowser('chrome').build();
         
-        /*
-        const { Builder } = require('selenium-webdriver');
-        const chrome = require('selenium-webdriver/chrome');
-        const { ServiceBuilder } = require('selenium-webdriver/chrome');
-
-        let service = new ServiceBuilder(require('chromedriver').path);
-        let options = new chrome.Options();
-
-        let driver = new Builder()
-            .forBrowser('chrome')
-            .setChromeOptions(options)
-            .setChromeService(service)
-            .build();
-
-        */
 
         await driver.get('https://www.saucedemo.com/');
         const title = await driver.getTitle();
@@ -94,6 +63,7 @@ describe('Google Search', function() {
         
         let produkSort = driver.findElement(By.className('product_sort_container')).getText();
         console.log('Produk Sort:', produkSort);
+        
         //let produkSort = await driver.findElement(By.className('product_sort_container')).sendKeys('az');
         //let produkSort = await driver.findElement(By.className('product_sort_container')).sendKeys('Name (A to Z)');
         //let produkSortText = await produkSort.getText();
@@ -116,37 +86,11 @@ describe('Google Search', function() {
          
     });
     
-    /*
-    it('Login ke Sauce Demo', async function() {
-        
-        driver = await new Builder().forBrowser('chrome').build();
-        
-        await driver.get('https://www.saucedemo.com/');
-        
-        // Tunggu elemen input username dan password muncul
-        const usernameInput = await driver.wait(until.elementLocated(By.id('user-name')), 10000);
-        const passwordInput = await driver.wait(until.elementLocated(By.id('password')), 10000);
-        
-        // Isi username dan password
-        await usernameInput.sendKeys('standard_user');
-        await passwordInput.sendKeys('secret_sauce');
-        
-        // Klik tombol login
-        const loginButton = await driver.findElement(By.id('login-button'));
-        await loginButton.click();
-        
-        // Tunggu sampai halaman utama dimuat
-        await driver.wait(until.elementLocated(By.className('inventory_list')), 10000);
-        
-        // Cek apakah berhasil login dengan memeriksa elemen yang ada di halaman utama
-        const inventoryList = await driver.findElement(By.className('inventory_list'));
-        assert.ok(inventoryList, 'Login gagal, inventory list tidak ditemukan!');
-    });
-    */
 
     after(async function() {
         await driver.quit();
         console.log("ini ngeprint di dalem hook after");
     });
+
 
 });
