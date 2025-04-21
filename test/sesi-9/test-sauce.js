@@ -1,8 +1,24 @@
 const {Builder, By, until} = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+const { ServiceBuilder } = require('selenium-webdriver/chrome');
 const assert = require('assert');
 
 describe('Google Search', function() {
-    let driver;
+    //let driver;
+    let service = new ServiceBuilder(require('chromedriver').path);
+    let options = new chrome.Options();
+
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(options)
+        .setChromeService(service)
+        .build();
+    
+
+    before(async function() {
+        driver = await new Builder().forBrowser('chrome').build();
+        console.log("ini ngeprint di dalem hook before");
+    });
 
     /*
     it('Visit Sauce Demo dan cek page title', async function() {
@@ -22,6 +38,7 @@ describe('Google Search', function() {
         //Options = new chrome.Options();
         //driver = await new Builder().forBrowser('chrome').build();
         
+        /*
         const { Builder } = require('selenium-webdriver');
         const chrome = require('selenium-webdriver/chrome');
         const { ServiceBuilder } = require('selenium-webdriver/chrome');
@@ -34,6 +51,8 @@ describe('Google Search', function() {
             .setChromeOptions(options)
             .setChromeService(service)
             .build();
+
+        */
 
         await driver.get('https://www.saucedemo.com/');
         const title = await driver.getTitle();
@@ -88,7 +107,8 @@ describe('Google Search', function() {
         //const inventoryList = await driver.findElement(By.className('inventory_list'));
         //assert.ok(inventoryList, 'Login gagal, inventory list tidak ditemukan!');
         //await driver.sleep(3000); // Tunggu 2 detik agar halaman sepenuhnya dimuat
-        await driver.quit();
+        
+        //await driver.quit();
     
 
 
@@ -123,4 +143,10 @@ describe('Google Search', function() {
         assert.ok(inventoryList, 'Login gagal, inventory list tidak ditemukan!');
     });
     */
+
+    after(async function() {
+        await driver.quit();
+        console.log("ini ngeprint di dalem hook after");
+    });
+
 });
