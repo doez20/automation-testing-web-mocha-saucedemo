@@ -3,6 +3,9 @@ const chrome = require('selenium-webdriver/chrome');
 const { ServiceBuilder } = require('selenium-webdriver/chrome');
 const assert = require('assert');
 
+//import page_login from '../../pages/page_login.js'
+const page_login = require('../../pages/page_login.js');
+
 describe('Google Search', function() {
     let service = new ServiceBuilder(require('chromedriver').path);
     let options = new chrome.Options();
@@ -30,9 +33,18 @@ describe('Google Search', function() {
         assert.strictEqual(title, 'Swag Labs');
 
         // input username dan password
+        
+        /*
         let username = await driver.findElement(By.id('user-name'));
         let password = await driver.findElement(By.id('password'));
         let loginButton = await driver.findElement(By.id('login-button'));
+        */
+
+        // Menggunakan page_login.js untuk mendapatkan elemen
+        let username = await driver.findElement(page_login.username);
+        let password = await driver.findElement(page_login.password);
+        let loginButton = await driver.findElement(page_login.loginButton);
+        
         await username.sendKeys('standard_user');
         await password.sendKeys('secret_sauce');
         await loginButton.click();
